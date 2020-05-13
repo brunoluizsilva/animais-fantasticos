@@ -1,23 +1,41 @@
-export default function initAnimacaoScroll() {
-  const sections = document.querySelectorAll('[data-anime="scroll"]'); //selecionei todas as sections
-  const windowMetade = window.innerHeight * 0.6;
+export default class ScrollAnimacao {
+  constructor(sections) {
+    this.sections = document.querySelectorAll(sections);
+    this.windowMetade = window.innerHeight * 0.6;
 
-  function animaScroll() {
-    sections.forEach((section) => {
-      //percorre cada section
-      const sectionTop = section.getBoundingClientRect().top; //pega a distancia do topo de cada section
-      const isSectionVisible = sectionTop - windowMetade < 0;
-      if (isSectionVisible) {
-        // se a altura da section for menor que 0 adiciona em cada section a classe ativo = .js-scroll.ativo
-        section.classList.add("ativo");
-      } else if (section.classList.contains("ativo")) {
-        section.classList.remove("ativo");
+    this.checkDistance = this.checkDistance.bind(this);
+  }
+
+  getDistance() {
+    this.distance = [...this.sections].map((section) => {
+      const offset = section.offsetTop; //pega a distancia do topo de cada section
+      return {
+        element: section,
+        offset: Math.floor(offset - this.windowMetade),
+      };
+    });
+  }
+  // verifica a distancia em cada objeto
+  // em relacao ao scroll do site
+  checkDistance() {
+    this.distance.forEach((item) => {
+      if (window.pageYOffset > item.offset) {
+        item.element.classList.add("ativo");
+      } else if (item.element.classList.contains("ativo")) {
+        item.element.classList.remove("ativo");
       }
     });
   }
-  if (sections.length) {
-    animaScroll();
 
-    window.addEventListener("scroll", animaScroll); //cria o evento de scroll
+  init() {
+    if (this.sections.length) {
+      this.getDistance();
+      this.checkDistance();
+      window.addEventListener("scroll", this.checkDistance);
+    }
+    return this;
+  }
+  stop() {
+    window.removeEventListener("scroll", this.checkDistance);
   }
 }
