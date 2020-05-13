@@ -13,13 +13,19 @@
 
 .numeros-grid h3 {
   font-size: 2rem;
-  font-family: 'Playfair Display SC';
-  margin-bottom: .5rem;
+  font-family: "Playfair Display SC";
+  margin-bottom: 0.5rem;
 }
 
 .numeros-grid span {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   font-size: 1.5rem;
   color: #e54;
+}
+
+@media (max-width: 500px) {
+  .numeros-grid h3 {
+    font-size: 1.75rem;
+  }
 }
