@@ -35,6 +35,7 @@ tooltip.init();
 
 const scrollAnimacao = new ScrollAnimacao('[data-anime="scroll"]');
 scrollAnimacao.init();
+// scrollAnimacao.stop();
 
 initDropdownMenu();
 initMenuMobile();
