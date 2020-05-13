@@ -12,6 +12,7 @@ export default function fetchAnimais(url, target) {
 
   // Preenche cada animal no DOM
   const numerosGrid = document.querySelector(target);
+
   function preencherAnimais(animal) {
     const divAnimal = createAnimal(animal);
     numerosGrid.appendChild(divAnimal);
@@ -33,12 +34,12 @@ export default function fetchAnimais(url, target) {
 
       // Após a transformação de json, ativa as funções
       // para preencher e animar os números
+
       animaisJSON.forEach((animal) => preencherAnimais(animal));
       animaAnimaisNumeros();
     } catch (erro) {
       console.log(erro);
     }
   }
-
   return criarAnimais();
 }
